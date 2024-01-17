@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Edit Assignments
+{% endblock %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+{% block main %}
+    <div class="table-container">
+        <table class="table1">
+            <tr>
+                <th></th>
+                <th>
+                    <form action="/edit_assignment" method="post" class="sort-btn-form">
+                        <button type="submit" name="sort_by_assignment_name" value="sort" class="sort-btn">Assignment Name</button>
+                    </form>
+                </th>
+                <th>
+                    <form action="/edit_assignment" method="post" class="sort-btn-form">
+                        <button type="submit" name="sort_by_class_name" value="sort" class="sort-btn">Class Name</button>
+                    </form>
+                </th>
+                <th>
+                    <form action="/edit_assignment" method="post" class="sort-btn-form">
+                        <button type="submit" name="sort_by_due_date" value="sort" class="sort-btn">Due Date</button>
+                    </form>
+                </th>
+                <th>
+                    <form action="/edit_assignment" method="post" class="sort-btn-form">
+                        <button type="submit" name="sort_by_size" value="sort" class="sort-btn">Size</button>
+                    </form>
+                </th>
+            </tr>
+            {% for assignment_id, info in assignment_ids.items() %}
+                {% if assignment_id_to_edit and assignment_id == assignment_id_to_edit %}
+                    <form action="/edit_assignment" method="post">
+                        <tr>
+                            <td>
+                                <input type="hidden" name="assignment_id" value="{{ assignment_id }}">
+                            </td>
+                            <td>
+                                <input type="text" autofocus name="assignment_name" value="{{ info['assignment_name'] }}">
+                            </td>
+                            <td>
+                                <input type="text" name="class_name" value="{{ info['class_name'] }}">
+                            </td>
+                            <td>
+                                <input type="date" id="due_date" name="due_date" value="{{ info['due_date_unconverted'] }}">
+                            </td>
+                            <td>
+                                <select class="flag-select" id="size" name="size">
+                                    <option value="{{ info['size'] }}" selected>{{ info["size"] }}</option>
+                                    <option value="🚩">🚩</option>
+                                    <option value="🚩🚩">🚩🚩</option>
+                                    <option value="🚩🚩🚩">🚩🚩🚩</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="unarchive-button" type="submit" name="save_edit">Save Changes</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="description-cell" colspan="2">
+                                <input autocomplete="off" class="description-text-box" id="description" name="description" value="{{ info['description'] }}" type="text">
+                            </td>
+                        </tr>
+                    </form>
+
+
+                {% else %}
+                    {% if not info["archived"] %}
+                        <tr>
+                            <td></td>
+                            <td>{{ info["assignment_name"] }}</td>
+                            <td>{{ info["class_name"] }}</td>
+                            <td>{{ info["due_date"] }}</td>
+                            <td>{{ info["size"] }}</td>
+                            <td> 
+                                <form action="/edit_assignment" method="post">
+                                    <input type="hidden" name="edit_assignment_id" value="{{ assignment_id }}">
+                                    <button type="submit" class="edit-button" name="edit_assignment_button">✎</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% if info["description"] is not none %}
+                            <tr>
+                                <td></td>
+                                <td class="description-cell" colspan="2"> &bull; {{ info["description"] }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </table>
+        
+    </div>
+
+{% endblock %}
+

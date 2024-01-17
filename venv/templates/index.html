@@ -1,18 +1,122 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
+
+{% block title %}
+Assignments
+{% endblock %}
+
 <head>
-    <title>Simple HTML Page</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body>
 
-<h1>Hello, World!</h1>
-<p>Big phat dubs</p>
+{% block main %}
+    <div class="table-container">
+        <table class="table1">
+            <tr>
+                <th></th>
+                <th>
+                    <form action="/" method="post" class="sort-btn-form">
+                        <button type="submit" name="sort_by_assignment_name" value="sort" class="sort-btn">Assignment Name</button>
+                    </form>
+                </th>
+                <th>
+                    <form action="/" method="post" class="sort-btn-form">
+                        <button type="submit" name="sort_by_class_name" value="sort" class="sort-btn">Class Name</button>
+                    </form>
+                </th>
+                <th>
+                    <form action="/" method="post" class="sort-btn-form">
+                        <button type="submit" name="sort_by_due_date" value="sort" class="sort-btn">Due Date</button>
+                    </form>
+                </th>
+                <th>
+                    <form action="/" method="post" class="sort-btn-form">
+                        <button type="submit" name="sort_by_size" value="sort" class="sort-btn">Size</button>
+                    </form>
+                </th>
+                <th>
+                    <form action="/edit_assignment" method="post">
+                        <input type="hidden" name="edit-assignment" value="edit-assignment">
+                        <button type="submit" class="edit-button" name="edit_assignment_button">✎</button>
+                    </form>
+                </th>
+            </tr>
+            {% for assignment_id, info in assignment_ids.items() %}
+                {% if not info["archived"] %}
+                    <tr>
+                        <td>
+                            <form action="/" method="post">
+                                <button type="submit" class="circular-button" name="complete_assignment_button" value="{{ assignment_id }}"></button>
+                            </form>
+                        </td>
+                        <td>{{ info["assignment_name"] }}</td>
+                        <td>{{ info["class_name"] }}</td>
+                        <td>{{ info["due_date"] }}</td>
+                        <td>{{ info["size"] }}</td>
+                    </tr>
+                    {% if info["description"] is not none %}
+                        <tr>
+                            <td></td>
+                            <td class="description-cell" colspan="2"> &bull; {{ info["description"] }}</td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            <form action="/" method="post">
+                <tr>
+                    <td></td>
+                    <td>
+                        <div>
+                            <input autocomplete="off" autofocus class="form-control" id="assignment_name" name="assignment_name" placeholder="Assignment Name" required type="text" style="width: 172px">
+                        </div>
 
-<form action="/index" method="post">
-    
-    <p> {{ name }}</p>
+                    </td>
+                    <td>
+                        <div>
+                           <!-- <input autocomplete="on" autofocus class="form-control" id="class_name" name="class_name" placeholder="Class Name" type="text" style="width: 120px">
+                           -->
+                            <input autocomplete="off" autocapitalize="on" list="class_options" id="class_name" name="class_name" required placeholder="Class Name" class="form-control" style="width: 147px" type="text">
+                            <datalist id="class_options">
+                                {% for class_name in classes %}
+                                    <option value="{{ class_name }}"></option>
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="date" id="due_date" name="due_date" value="{{ todays_date }}" style="font-size: 16px; width: 120px">
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <select class="flag-select" id="size" name="size">
+                                <option value="🚩" selected>🚩</option>
+                                <option value="🚩🚩">🚩🚩</option>
+                                <option value="🚩🚩🚩">🚩🚩🚩</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                        <div>
+                            <input autocomplete="off" autofocus class="description-text-box" id="description" name="description" placeholder="Description" type="text">
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <button class="centeredItem2" type="submit" name="add_assignment_button" value="add">Add Assignment</button>
+                    </td>
+                </tr>
+            </form>
+        </table>
         
-</form>
+    </div>
 
-</body>
-</html>
+    <h5 class="info-text bottom-fixed">
+        EZ-PZ Planner uses a custom, intelligent sorting algorithm
+        that does the thinking for you by recommending the order in
+        which you should complete your assignments.
+    </h5>
+{% endblock %}
+

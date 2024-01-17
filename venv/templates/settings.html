@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Settings
+{% endblock %}
+
+{% block main %}
+
+    <form class="settings-radio-buttons" action="/settings" method="post">
+        <div class="settings-option-header">
+            Date Display Options:
+        </div>
+        <div>
+            <label>
+                Show Only Dates: <input type="radio" onchange="this.form.submit()" name="date_types" value="only dates" {% if date_type_setting == "only dates" %}checked{% endif %}>
+            </label>
+        </div>
+        <div>
+            <label>
+                Show Some Relative Dates: <input type="radio" onchange="this.form.submit()" name="date_types" value="some relative dates" {% if date_type_setting == "some relative dates" %}checked{% endif %}>
+            </label>
+        </div>
+        <div>    
+            <label>
+                Show Only Relative Dates: <input type="radio" onchange="this.form.submit()" name="date_types" value="only relative dates" {% if date_type_setting == "only relative dates" %}checked{% endif %}>
+            </label>
+        </div>
+    </form>
+{% endblock %}

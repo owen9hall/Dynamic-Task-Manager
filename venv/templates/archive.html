@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Archive
+{% endblock %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+{% block main %}
+    <div class="table-container">
+        <table class="table1">
+            <tr>
+                <!--
+                <th></th>
+                -->
+                <th>Archived Assignment Name</th>
+                <th>Class Name</th>
+                <th>Due Date</th>
+                <th>Size</th>
+            </tr>
+            {% for assignment_id, info in assignment_ids.items() %}
+                <tr>
+                    <td>{{ info["assignment_name"] }}</td>
+                    <td>{{ info["class_name"] }}</td>
+                    <td>{{ info["due_date"] }}</td>
+                    <td>{{ info["size"] }}</td>
+                    <td>
+                        <form action="/archive" method="post">
+                            <button class="unarchive-button" type="submit" name="unarchive" value="{{ assignment_id }}">Unarchive</button>
+                        </form>
+                    </td>
+                </tr>
+                {% if info["description"] is not none %}
+                    <tr>
+                        <td></td>
+                        <td class="description-cell" colspan="2"> &bull; {{ info["description"] }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>    
+{% endblock %}
