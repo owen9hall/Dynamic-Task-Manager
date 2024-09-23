@@ -10,14 +10,14 @@ To solve these issues, I created my owen task manager: Ez-Pz Planner
 This project was built using the Flask framework (Python). I used SQL databases to store the user accounts and assignment information. For the UI/UX, I used HTML and CSS.
 
 ## Installation
-# 1. Open the terminal and enter the directory you would like to open the project in.
-# 2. In the terminal type the separate commands:
+  1. Open the terminal and enter the directory you would like to open the project in.
+  2. In the terminal type the separate commands:
    git init
    git clone https://github.com/owen9hall/Dynamic-Task-Manager.git
    cd Dynamic-Task-Manager/venv
    python -m pip install flask
    python -m flask run
-# 3. You should be given a link to a development server: http://127.0.0.1:5000
+  3. You should be given a link to a development server: http://127.0.0.1:5000
    Open the link in your browser. You can now use the Ez-Pz Planner.
    
 
