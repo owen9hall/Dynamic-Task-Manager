@@ -2,12 +2,14 @@
 
 ## Description
 
-I am a very organized person, so I have spent time using many different kinds of task managers over the years. Two common issues I found:
-  1. They were overcomplicated. They had many features that were distracting and unnecessary, resulting in more visual clutter and more time spent on the application trying to organize my tasks and less time actually completing my tasks.
-  2. They didn't help me answer the question of: "What task should I work on first?" I yearned for an application that could tell me the exact priority of each of my tasks so I wouldn't spend any time reading and analyzing each of my tasks in order to figure out which to work on next.
-To solve these issues, I created my owen task manager: Ez-Pz Planner
-
+Ez-Pz Planner is a dynamic task manager designed to simplify task management. Many existing applications are overly complex, leading to distractions and wasted time. This tool provides a minimalistic, sleek interface and provides a visual for users to see exactly the order in which they should complete their tasks based on the individual data of each task.  
+  
 This project was built using the Flask framework (Python). I used SQL databases to store the user accounts and assignment information. For the UI/UX, I used HTML and CSS.
+
+## Key Features
+- Simple and intuitive interface
+- Task prioritization to help you focus on what to work on next
+- User accounts for personalized task management
 
 ## Installation
   1. Open the terminal and enter the directory you would like to open the project in.
